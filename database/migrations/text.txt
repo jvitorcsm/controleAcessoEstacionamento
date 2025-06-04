@@ -1,0 +1,8 @@
+database/migrations/ – Evolução controlada do banco
+Essa pasta é usada quando você trabalha com migrações de banco de dados (com Sequelize CLI, por exemplo). Em vez de usar .sync({ alter: true }), você cria arquivos de migração explícitos, como:
+
+20240601-create-usuarios.js
+
+20240602-create-veiculos.js
+
+20240603-add-campo-status-usuarios.js

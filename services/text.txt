@@ -1,0 +1,2 @@
+services/ – Regras de negócio reutilizáveis
+Essa pasta serve para centralizar a lógica da aplicação, separando ela do controller.
