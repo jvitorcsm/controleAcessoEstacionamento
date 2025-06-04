@@ -53,12 +53,20 @@ export default function Registros() {
 
       <h3>Últimos Registros</h3>
       <ul>
-        {historico.map((item) => (
+      {historico.map((item) => {
+        const tipo = item?.tipo?.toUpperCase?.() || 'TIPO DESCONHECIDO';
+        const placa = item?.placa || 'PLACA DESCONHECIDA';
+        const data = item?.createdAt
+          ? new Date(item.createdAt).toLocaleString()
+          : 'DATA INVÁLIDA';
+      
+        return (
           <li key={item.id}>
-            {item.tipo.toUpperCase()} - {item.placa} - {new Date(item.createdAt).toLocaleString()}
+            {tipo} - {placa} - {data}
           </li>
-        ))}
-      </ul>
+        );
+      })}
+    </ul>
 
       <button onClick={() => navigate('/dashboard')}>Voltar</button>
     </div>
