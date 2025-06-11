@@ -3,6 +3,10 @@ const sequelize = require('../config/database');
 const Veiculo = require('./Veiculo');
 
 const RegistroAcesso = sequelize.define('RegistroAcesso', {
+  veiculo_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
   data_hora_entrada: {
     type: DataTypes.DATE,
     allowNull: true

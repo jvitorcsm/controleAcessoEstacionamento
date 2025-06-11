@@ -1,6 +1,24 @@
 const RegistroAcesso = require('../models/RegistroAcesso');
 const Veiculo = require('../models/Veiculo');
 
+const TOTAL_VAGAS = 50;
+
+const consultarVagasDisponiveis = async (req, res) => {
+  try {
+    const ocupadas = await RegistroAcesso.count({
+      where: {
+        status: 'entrada'
+      }
+    });
+
+    const vagasDisponiveis = TOTAL_VAGAS - ocupadas;
+
+    res.json({ vagasDisponiveis, total: TOTAL_VAGAS, ocupadas });
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao consultar vagas', detalhe: err.message });
+  }
+};
+
 // Registra entrada
 const registrarEntrada = async (req, res) => {
   try {
@@ -66,4 +84,4 @@ const listarRegistros = async (req, res) => {
   }
 };
 
-module.exports = { registrarEntrada, registrarSaida, listarRegistros };
+module.exports = { registrarEntrada, registrarSaida, listarRegistros, consultarVagasDisponiveis };
