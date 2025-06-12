@@ -1,6 +1,24 @@
 const RegistroAcesso = require('../models/RegistroAcesso');
 const Veiculo = require('../models/Veiculo');
 
+const excluir = async (req, res) => {
+  try {
+    const veiculoId = req.params.id;
+    const acessoAberto = await RegistroAcesso.findOne({
+      where: {
+        veiculo_id: veiculoId,
+        status: 'entrada'
+      }
+    });
+    if (acessoAberto) {
+      return res.status(400).json({ error: 'Não é possível excluir veículo com acesso aberto' });
+    };
+    await Veiculo.destroy({ where: { id: veiculoId } });
+    res.status(204).send();
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao excluir registro', detalhe: err.message });
+  }
+};
 const TOTAL_VAGAS = 50;
 
 const consultarVagasDisponiveis = async (req, res) => {
@@ -84,4 +102,4 @@ const listarRegistros = async (req, res) => {
   }
 };
 
-module.exports = { registrarEntrada, registrarSaida, listarRegistros, consultarVagasDisponiveis };
+module.exports = { excluir ,registrarEntrada, registrarSaida, listarRegistros, consultarVagasDisponiveis };

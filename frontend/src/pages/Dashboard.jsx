@@ -19,7 +19,12 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchVagas = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/acessos/vagas');
+        const response = await axios.get('http://localhost:3000/api/acessos/vagas',{
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          },
+        });
+        console.log('📦 Dados recebidos:', response.data);
         setVagas(response.data);
       } catch (err) {
         console.error('Erro ao buscar vagas:', err);
@@ -111,19 +116,3 @@ buttons.forEach(button => {
   });
 });
 // Fim do código
-// Nota: O código acima assume que o backend está rodando em http://localhost:3001
-// e que a API de vagas está implementada corretamente.
-// Certifique-se de que o backend esteja configurado para aceitar requisições CORS se necessário.
-// Além disso, o código assume que o usuário está autenticado e que os dados do usuário
-// estão armazenados no localStorage após o login.
-// Se você estiver usando um sistema de autenticação diferente, ajuste o código conforme necessário.
-// Certifique-se de que o axios está instalado no seu projeto:
-// npm install axios
-// Certifique-se de que o React Router está configurado corretamente no seu projeto.
-// npm install react-router-dom
-// Certifique-se de que o CSS global do seu projeto não conflita com os estilos inline aplicados.
-// Certifique-se de que o componente Dashboard está sendo renderizado dentro de um Router.
-// Certifique-se de que o componente Dashboard está sendo importado e utilizado corretamente
-// no seu arquivo de rotas principal (geralmente App.jsx ou index.jsx).
-// Certifique-se de que o localStorage está sendo utilizado corretamente para armazenar os dados do usuário.
-// Certifique-se de que o backend está configurado para lidar com as rotas e métodos HTTP utilizados. 

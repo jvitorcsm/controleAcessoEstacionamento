@@ -1,4 +1,5 @@
 const Veiculo = require('../models/Veiculo');
+const RegistroAcesso = require('../models/RegistroAcesso');
 
 const cadastrar = async (req, res) => {
   try {
@@ -39,6 +40,20 @@ const atualizar = async (req, res) => {
 
 const excluir = async (req, res) => {
   try {
+    const veiculoId = parseInt(req.params.id, 10); // 👈 garante que seja número
+    // Verifica se há registro de entrada ativo (ainda no estacionamento)
+    const acessoAberto = await RegistroAcesso.findOne({
+      where: {
+        veiculo_id: veiculoId,
+        status: 'entrada'
+      },
+      order: [['createdAt', 'DESC']] // Pega o mais recente 
+    });
+    if (acessoAberto) {
+      return res.status(400).json({
+        error: 'Veículo não pode ser excluído enquanto estiver no estacionamento.'
+      });
+    };
     const { id } = req.params;
     const veiculo = await Veiculo.findOne({ where: { id, usuario_id: req.usuarioId } });
     if (!veiculo) return res.status(404).json({ error: 'Veículo não encontrado' });

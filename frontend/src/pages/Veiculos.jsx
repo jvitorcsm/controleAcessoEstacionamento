@@ -21,12 +21,15 @@ export default function Veiculos() {
   const cadastrarVeiculo = async (e) => {
     e.preventDefault();
     try {
-      await api.post('/veiculos', { modelo, placa, cor });
+      const usuario = JSON.parse(localStorage.getItem('usuario'));
+      console.log('Usuário:', usuario);
+      await api.post('/veiculos', { modelo, placa, cor, usuario_id: usuario.id });
       setModelo('');
       setPlaca('');
       setCor('');
       buscarVeiculos();
     } catch (err) {
+      console.error('Erro ao cadastrar veículo:', err.response.data || err.message);
       alert('Erro ao cadastrar veículo');
     }
   };
@@ -36,6 +39,7 @@ export default function Veiculos() {
       await api.delete(`/veiculos/${id}`);
       buscarVeiculos();
     } catch (err) {
+      console.error('Erro ao excluir veículo:', err.response.data || err.message);
       alert('Erro ao excluir');
     }
   };

@@ -15,6 +15,7 @@ export default function Login() {
       localStorage.setItem('usuario', JSON.stringify(data.usuario));
       navigate('/dashboard');
     } catch (err) {
+      console.error('Erro ao fazer login:', err);
       alert('Erro ao fazer login');
     }
   };
