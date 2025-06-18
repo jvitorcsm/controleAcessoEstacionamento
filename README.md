@@ -1,3 +1,5 @@
+João Vitor & Cecilia Cardoso
+
 # Sistema de Controle de Acesso ao Estacionamento
 
 Este sistema foi desenvolvido como parte do curso Técnico em Desenvolvimento de Sistemas do SENAI. Ele permite o controle de entrada e saída de veículos em estacionamentos, com gerenciamento de usuários, visitantes, registros e logs.
