@@ -1,6 +1,25 @@
 const Veiculo = require('../models/Veiculo');
 const RegistroAcesso = require('../models/RegistroAcesso');
 
+const listarVeiculosAtivos = async (req, res) => {
+  try {
+    const registros = await RegistroAcesso.findAll({
+      where: {
+        status: 'entrada'
+      },
+      include: [{ model: Veiculo, as: 'veiculo' }]
+    });
+
+    const veiculosUnicos = registros
+      .map(r => r.veiculo)
+      .filter((v, index, self) => index === self.findIndex(t => t.id === v.id)); // remove duplicatas
+
+    res.status(200).json(veiculosUnicos);
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao buscar veículos ativos', detalhe: err.message });
+  }
+};
+
 const cadastrar = async (req, res) => {
   try {
     const { modelo, placa, cor } = req.body;
@@ -65,4 +84,4 @@ const excluir = async (req, res) => {
   }
 };
 
-module.exports = { cadastrar, listar, atualizar, excluir };
+module.exports = { listarVeiculosAtivos, cadastrar, listar, atualizar, excluir };

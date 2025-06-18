@@ -11,7 +11,7 @@ export default function Veiculos() {
 
   const buscarVeiculos = async () => {
     try {
-      const { data } = await api.get('/veiculos');
+      const { data } = await api.get('/veiculos/ativos');
       setVeiculos(data);
     } catch (err) {
       console.error('Erro ao buscar veículos:', err);

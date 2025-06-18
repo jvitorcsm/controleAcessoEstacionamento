@@ -1,5 +1,6 @@
 # ✅ Node.js / Express (backend)
 node_modules/
+.env
 *.log
 dist/
 coverage/

@@ -13,7 +13,7 @@ const Veiculo = sequelize.define('Veiculo', {
 
 Veiculo.belongsTo(Usuario, {
   foreignKey: 'usuario_id',
-  as: 'proprietario'
+  as: 'usuario'
 });
 
 module.exports = Veiculo;
