@@ -25,6 +25,7 @@ export default function Login() {
       <h2>Login no Sistema</h2>
       <form onSubmit={handleLogin}>
         <input
+          name='email'
           type="email"
           placeholder="E-mail"
           value={email}
@@ -32,6 +33,7 @@ export default function Login() {
           required
         />
         <input
+          name='senha'
           type="password"
           placeholder="Senha"
           value={senha}
